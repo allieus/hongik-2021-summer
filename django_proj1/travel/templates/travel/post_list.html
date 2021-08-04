@@ -1,8 +1,26 @@
-<ul>
-    {% for post in post_list %}
-    <li>
-        {{ post.message }}
-        <a href="/travel/{{ post.pk }}/">자세히 보기</a>
-    </li>
-    {% endfor %}
-</ul>
+<!doctype html>
+<html>
+
+<head>
+    <title></title>
+    <style>
+        body {
+            background-color: lightyellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul>
+        {% for post in post_list %}
+        <li>
+            {{ post.message }}
+            <a href="/travel/{{ post.pk }}/">자세히 보기</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>
