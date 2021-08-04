@@ -2,6 +2,7 @@
     {% for post in post_list %}
     <li>
         {{ post.message }}
+        <a href="/travel/{{ post.pk }}/">자세히 보기</a>
     </li>
     {% endfor %}
 </ul>
