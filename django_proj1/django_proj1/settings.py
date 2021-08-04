@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'travel',  # 콤마 빼먹지 마세요.
+    'blog',
 ]
 
 MIDDLEWARE = [
