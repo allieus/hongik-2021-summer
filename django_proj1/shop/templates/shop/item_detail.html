@@ -1,0 +1,32 @@
+<h2>{{ item.name }}</h2>
+
+{{ item.desc }}
+
+{% if item.photo %}
+<img src="{{ item.photo.url }}" style="width: 100px;" />
+{% endif %}
+
+{{ item.is_public }}
+
+<hr />
+
+{{ item.created_at }}
+{{ item.updated_at }}
+
+<hr />
+
+<a href="/shop/">목록</a>
+
+<hr />
+
+<h3>리뷰</h3>
+
+<ul>
+    {% for review in item.review_set.all %}
+    <li>
+        {{ review.message }}
+        {{ review.created_at }}
+        {{ review.updated_at }}
+    </li>
+    {% endfor %}
+</ul>

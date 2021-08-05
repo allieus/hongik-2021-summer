@@ -1,0 +1,20 @@
+<table>
+    <tbody>
+        {% for item in item_list %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>
+                <a href="/shop/{{ item.pk }}/">
+                    {{ item.name }}
+                </a>
+            </td>
+            <td>{{ item.price }}</td>
+            <td>
+                {% if item.photo %}
+                <img src="{{ item.photo.url }}" style="width: 100px; height: 100px;" />
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
