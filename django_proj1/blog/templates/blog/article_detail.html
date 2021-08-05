@@ -1,0 +1,13 @@
+{% extends "blog/layout.html" %}
+
+{% block content %}
+<h2>{{ article.title }}</h2>
+
+<!-- django template filter -->
+{{ article.content|linebreaks }}
+
+<hr />
+
+<a href="/blog/">목록</a>
+
+{% endblock %}

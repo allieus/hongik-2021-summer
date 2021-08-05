@@ -1,0 +1,15 @@
+{% extends "blog/layout.html" %}
+
+{% block content %}
+<ul>
+    {% for article in article_list %}
+    <li>
+        <a href="/blog/{{ article.pk }}/">
+            {{ article.title }}
+        </a>
+        {{ article.created_at }}
+        {{ article.updated_At }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
