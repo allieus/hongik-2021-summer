@@ -1,9 +1,9 @@
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.views.generic import ListView
 
-from journal.forms import PostForm
-from journal.models import Post
+from journal.forms import CommentForm, PostForm
+from journal.models import Comment, Post
 
 # FBV (Function Based View)
 # def index(request):
@@ -65,9 +65,10 @@ def post_edit(request: HttpRequest, pk):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)  # 방금 저장한 모델 객체를 반환
-            post.ip = request.META["REMOTE_ADDR"]
-            post.save()
+            form.save()
+            # post = form.save(commit=False)  # 방금 저장한 모델 객체를 반환
+            # post.ip = request.META["REMOTE_ADDR"]
+            # post.save()
             return redirect(f"/journal/{post.pk}/")
     else:
         form = PostForm(instance=post)
@@ -83,3 +84,47 @@ def post_edit(request: HttpRequest, pk):
 
 # def post_delete(request, pk):
 #     pass
+
+
+def comment_new(request: HttpRequest, post_pk: int) -> HttpResponse:
+    post = Post.objects.get(pk=post_pk)
+
+    # 댓글쓰기에 성공하면, post detail 로 이동
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect(f"/journal/{post_pk}/")
+    else:
+        form = CommentForm()
+
+    return render(
+        request,
+        "journal/comment_form.html",
+        {
+            "form": form,
+        },
+    )
+
+
+def comment_edit(request: HttpRequest, post_pk: int, pk: int) -> HttpResponse:
+    comment = Comment.objects.get(pk=pk)
+
+    # 댓글쓰기에 성공하면, post detail 로 이동
+    if request.method == "POST":
+        form = CommentForm(request.POST, request.FILES, instance=comment)
+        if form.is_valid():
+            comment = form.save()
+            return redirect(f"/journal/{post_pk}/")
+    else:
+        form = CommentForm(instance=comment)
+
+    return render(
+        request,
+        "journal/comment_form.html",
+        {
+            "form": form,
+        },
+    )

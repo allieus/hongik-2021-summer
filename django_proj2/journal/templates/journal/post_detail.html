@@ -11,11 +11,15 @@
 by {{ post.journallist.name }}
 at {{ post.created_at }}
 <hr />
+
+<a href="/journal/{{ post.pk }}/comments/new/">새 댓글 쓰기</a>
+
 <ul>
     {% for comment in comment_list %}
     <li>
         {{ comment.message }}
         at {{ comment.created_at }}
+        <a href="/journal/{{ post.pk }}/comments/{{ comment.pk }}/edit/">Edit</a>
     </li>
     {% endfor %}
 </ul>

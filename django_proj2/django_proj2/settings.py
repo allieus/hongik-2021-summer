@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-+)y-=9^b0phi@fuv^9on+lzfn*=0^a6iedse(b1tfb$fu%6h)c
 DEBUG = True
 
 # 서비스 주소로 허용할 호스트
-ALLOWED_HOSTS = ["192.168.0.50", "localhost"]
+ALLOWED_HOSTS = ["192.168.0.50", "localhost", "15b8c4ab1064.ngrok.io"]
 
 
 # Application definition
