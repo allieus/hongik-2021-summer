@@ -36,14 +36,19 @@ def post_detail(request, pk):
 
 
 def post_new(request: HttpRequest):
-    if request.method == "GET":
-        form = PostForm()
-    else:  # POST
+    if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()  # 방금 저장한 모델 객체를 반환
+            # commit=False를 지정하면, post.save() 가 호출되지 않은
+            # post 인스턴스 반환
+            post = form.save(commit=False)  # 방금 저장한 모델 객체를 반환
+            # post  # 아직 post.save()가 호출되지 않은 상태.
+            post.ip = request.META["REMOTE_ADDR"]
+            post.save()
             # return redirect("/journal/" + str(1) + "/")
             return redirect(f"/journal/{post.pk}/")
+    else:
+        form = PostForm()
 
     return render(
         request,
@@ -54,8 +59,26 @@ def post_new(request: HttpRequest):
     )
 
 
-# def post_edit(request, pk):
-#     pass
+def post_edit(request: HttpRequest, pk):
+    post = Post.objects.get(pk=pk)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)  # 방금 저장한 모델 객체를 반환
+            post.ip = request.META["REMOTE_ADDR"]
+            post.save()
+            return redirect(f"/journal/{post.pk}/")
+    else:
+        form = PostForm(instance=post)
+
+    return render(
+        request,
+        "journal/post_form.html",
+        {
+            "form": form,
+        },
+    )
 
 
 # def post_delete(request, pk):

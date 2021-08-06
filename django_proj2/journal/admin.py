@@ -1,5 +1,6 @@
 from django.contrib import admin
-from journal.models import Journalist, Post, Comment
+
+from journal.models import Comment, Journalist, Post
 
 # class JournalistAdmin(admin.ModelAdmin):
 #     pass
@@ -13,7 +14,7 @@ class JournalistAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["title", "ip", "created_at"]
 
 
 @admin.register(Comment)

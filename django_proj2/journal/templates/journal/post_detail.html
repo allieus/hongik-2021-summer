@@ -1,25 +1,26 @@
 {% extends 'journal/layout.html' %}
 
 {% block content %}
-    <h2>{{ post.title }}</h2>
+<h2>{{ post.title }}</h2>
 
-    <img src="{{ post.photo.url }}" />
+<img src="{{ post.photo.url }}" />
 
-    {{ post.content|linebreaks }}
+{{ post.content|linebreaks }}
 
-    <hr/>
-    by {{ post.journallist.name }}
-    at {{ post.created_at }}
-    <hr/>
-    <ul>
+<hr />
+by {{ post.journallist.name }}
+at {{ post.created_at }}
+<hr />
+<ul>
     {% for comment in comment_list %}
-        <li>
-            {{ comment.message }}
-            at {{ comment.created_at }}
-        </li>
+    <li>
+        {{ comment.message }}
+        at {{ comment.created_at }}
+    </li>
     {% endfor %}
-    </ul>
-    <hr/>
-    <a href="/journal/">List</a>
+</ul>
+<hr />
+<a href="/journal/">List</a>
+<a href="/journal/{{ post.pk }}/edit/">Edit</a>
 
 {% endblock %}

@@ -21,6 +21,7 @@ class Post(TimestampedModel):
     title = models.CharField(max_length=100)
     content = models.TextField()
     photo = models.ImageField()
+    ip = models.GenericIPAddressField()
 
     def __str__(self) -> str:
         return self.title
