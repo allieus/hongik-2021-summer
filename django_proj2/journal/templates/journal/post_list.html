@@ -1,0 +1,15 @@
+{% extends 'journal/layout.html' %}
+
+{% block content %}
+    <ul>
+    {% for post in post_list %}
+        <li>
+            <img src="{{ post.photo.url }}" style="width: 100px;" />
+            <a href="/journal/{{ post.pk }}/">
+                {{ post.title }}
+            </a>
+            {{ post.journallist.name }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
