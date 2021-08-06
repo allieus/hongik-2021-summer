@@ -1,0 +1,15 @@
+{% extends "journal/layout.html" %}
+
+{% block content %}
+
+<h2>Post Form</h2>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" />
+</form>
+
+{% endblock %}

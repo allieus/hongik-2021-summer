@@ -1,5 +1,8 @@
+from django.http import HttpRequest
+from django.shortcuts import redirect, render
 from django.views.generic import ListView
-from django.shortcuts import render
+
+from journal.forms import PostForm
 from journal.models import Post
 
 # FBV (Function Based View)
@@ -22,7 +25,38 @@ def post_detail(request, pk):
     # comment_list = Comment.objects.filter(post=post)
     # related name
     comment_list = post.comment_set.all()
-    return render(request, "journal/post_detail.html", {
-        "post": post,
-        "comment_list": comment_list,
-    })
+    return render(
+        request,
+        "journal/post_detail.html",
+        {
+            "post": post,
+            "comment_list": comment_list,
+        },
+    )
+
+
+def post_new(request: HttpRequest):
+    if request.method == "GET":
+        form = PostForm()
+    else:  # POST
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save()  # 방금 저장한 모델 객체를 반환
+            # return redirect("/journal/" + str(1) + "/")
+            return redirect(f"/journal/{post.pk}/")
+
+    return render(
+        request,
+        "journal/post_form.html",
+        {
+            "form": form,
+        },
+    )
+
+
+# def post_edit(request, pk):
+#     pass
+
+
+# def post_delete(request, pk):
+#     pass
