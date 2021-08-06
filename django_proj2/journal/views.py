@@ -128,3 +128,22 @@ def comment_edit(request: HttpRequest, post_pk: int, pk: int) -> HttpResponse:
             "form": form,
         },
     )
+
+
+# GET 요청 : <form>을 통해서 정말 삭제할 것인지를 물어봅니다.
+# POST 요청 : 삭제하고, 다른 주소로 이동시킵니다.
+
+
+def comment_delete(request: HttpRequest, post_pk: int, pk: int) -> HttpResponse:
+    comment = Comment.objects.get(pk=pk)
+    if request.method == "POST":
+        comment.delete()  # DB에 즉시 DELTE 쿼리를 전달
+        return redirect(f"/journal/{post_pk}/")
+
+    return render(
+        request,
+        "journal/comment_confirm_delete.html",
+        {
+            "comment": comment,
+        },
+    )

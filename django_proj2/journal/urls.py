@@ -13,4 +13,10 @@ urlpatterns = [
     path(
         "<int:post_pk>/comments/<int:pk>/edit/", views.comment_edit, name="comment_edit"
     ),
+    # 댓글 삭제
+    path(
+        "<int:post_pk>/comments/<int:pk>/delete/",
+        views.comment_delete,
+        name="comment_delete",
+    ),
 ]

@@ -20,6 +20,7 @@ at {{ post.created_at }}
         {{ comment.message }}
         at {{ comment.created_at }}
         <a href="/journal/{{ post.pk }}/comments/{{ comment.pk }}/edit/">Edit</a>
+        <a href="/journal/{{ post.pk }}/comments/{{ comment.pk }}/delete/">Delete</a>
     </li>
     {% endfor %}
 </ul>

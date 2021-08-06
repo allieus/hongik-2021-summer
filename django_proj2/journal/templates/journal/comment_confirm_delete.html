@@ -1,0 +1,14 @@
+{% extends "journal/layout.html" %}
+
+{% block content %}
+
+<h2>정말 삭제하겠소?</h2>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="삭제해주시오." />
+</form>
+
+낙장불입이오.
+
+{% endblock %}
