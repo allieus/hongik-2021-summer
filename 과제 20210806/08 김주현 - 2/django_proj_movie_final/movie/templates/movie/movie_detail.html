@@ -1,0 +1,38 @@
+{% extends "movie/layout.html" %}
+
+{% block content %}
+
+<h4>{{ movie.title }}</h4>
+<hr />
+
+{% if movie.poster %}
+<img src="{{ movie.poster.url }}" style="width: 350px; height: 450px;" />
+{% endif %}<br>
+{{ movie.desc|linebreaksbr }}<br>
+
+{% for video in vid %}
+
+<iframe
+  id="ytplayer"
+  type="text/html"
+  width="640"
+  height="360"
+  src="{{ video.youtube_url }}?autoplay=1&origin=http://example.com"
+  frameborder="0"
+></iframe>
+{% endfor %}
+<hr />
+<a href="/movie/{{ movie.pk }}/reviews/new/">Comment</a>
+<ul>
+    {% for comment in comment_list %}
+    <li>
+        {{ comment.comment }}
+        <a href="/movie/{{ movie.pk }}/reviews/{{ comment.pk }}/edit/">Edit</a>
+        <a href="/movie/{{ movie.pk }}/reviews/{{ comment.pk }}/delete/">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<hr />
+<a href="/movie/">메인화면으로</a>
+
+{% endblock %}

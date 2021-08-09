@@ -1,0 +1,28 @@
+{% extends "movie/layout.html" %}
+{% block content %}
+
+<h2>{{ actor.name }}</h2>
+
+<hr />
+<table border="1" bgcolor="ivory">
+    <tbody>
+        {% for movie in movie_list %}
+        <tr>
+            <td width="20%" align="center"><h5>{{ movie.title }}</h5></td>
+            <td width="20%" align="center">
+                {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" style="width: 200px; height: 250px;" />
+                {% endif %}
+            </td>
+            <td width="30%" align="center"><a href="/movie/movie/{{ movie.pk }}/"><h5>자세히보기</h5></a></td>
+            <td width="20%" align="center"><a href="/movie/{{ actor.pk }}/movie/{{ movie.pk }}/delete/"><h5>영화 제거 (아직 미구현)</h5></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/movie/{{ actor.pk }}/movie/new/">영화 추가</a>
+<a href="/movie/{{ actor.pk }}/movie/{{ actor.pk }}/edit/">영화 수정</a>
+<hr />
+<a href="/movie/">메인화면으로</a>
+
+{% endblock %}

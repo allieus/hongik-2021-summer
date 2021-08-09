@@ -1,0 +1,29 @@
+{% extends "movie/layout.html" %}
+
+{% block content %}
+
+{{ movie.movie }}
+<hr />
+
+{% if movie.poster %}
+<img src="{{ movie.poster.url }}" style="width: 200px; height: 200px;" />
+{% endif %}
+{{ movie.desc }}
+<hr />
+
+<a href="/movie/{{ movie.pk }}/reviews/new/">Comment</a>
+
+<ul>
+    {% for comment in comment_list %}
+    <li>
+        {{ comment.message }}
+        <a href="/movie/{{ movie.pk }}/reviews/{{ comment.pk }}/edit/">Edit</a>
+        <a href="/movie/{{ movie.pk }}/reviews/{{ comment.pk }}/delete/">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<hr />
+<a href="/movie/">List</a>
+<a href="/movie/{{ movie.pk }}/edit/">Edit</a>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'movie/layout.html' %} {% block content %}
+<h3>배우 리스트</h3>
+<hr />
+<table border="1" bgcolor="ivory">
+  <tbody>
+    {% for actor in actor_list %}
+      <tr>
+        <td width="20%" align="center"><h5>{{ actor.pk }}</h5></td>
+        <td width="30%" align="center">
+          <h5><a href="/movie/{{ actor.pk }}/">{{ actor.name }}</a></h5>
+        </td>
+        <td>
+          <img
+            src="{{ actor.photo.url }}"
+            style="width: 130px; height: 180px"
+          />
+          <a href="/movie/{{ actor.pk }}/edit/">배우 수정</a>
+          <a href="/movie/{{ actor.pk }}/delete/">배우 삭제</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </th>
+  </tbody>
+</table>
+<hr />
+<h6><a href="/movie/new/">배우 추가</a><h6>
+{% endblock %}
