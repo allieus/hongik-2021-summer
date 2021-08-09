@@ -1,0 +1,14 @@
+{% extends "movie/layout.html" %} {% block content %}
+
+<h2>{{ movie.name }} 예고편 추가</h2>
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form }}
+  </table>
+
+  <input type="submit" />
+</form>
+
+{% endblock %}

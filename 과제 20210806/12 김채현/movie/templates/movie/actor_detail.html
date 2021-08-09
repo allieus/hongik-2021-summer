@@ -1,0 +1,19 @@
+{% extends "movie/layout.html"%}
+
+{% block content %}
+<table>
+    {% for post in post_list %}
+    <tr>
+        <td> {{ post.name }} </td>
+        <td><a href="/movie/{{ actor.pk }}/mov/">{{ post.title }} </a></td><br>
+        <td> <img src ="{{ post.poster.url }}" style ="width: 100px; height: 150px"</td>
+         
+        <td>
+
+
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

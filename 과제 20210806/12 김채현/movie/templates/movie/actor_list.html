@@ -1,0 +1,18 @@
+{% extends "movie/layout.html"%}
+
+{% block content %}
+<table>
+    {% for actor in actor_list %}
+    <tr>
+        <td>   소속배우   </td>
+        <td> <img src ="{{ actor.photo.url }}" style ="width: 100px; height: 150px"</td>
+        <td>
+
+            <a href="/movie/{{ actor.pk }}/">{{ actor.name }}</a><br>
+
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

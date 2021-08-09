@@ -1,0 +1,42 @@
+{% extends "movie/layout.html"%}
+{% block content %}
+<h1> {{ movie.title }} </h1>
+<h2> <img src ="{{ movie.poster.url }}" style ="width: 100px; height: 150px"</h2>
+<h3> {{ movie.text  }} </t3>
+
+<h4> 영화 리뷰 </h4>
+
+{% for messagee in message %}
+<h5>
+    <li>
+      {{ review.messagee }}
+      <a
+      href="/movie/{{ movie.pk}}/mov/review/new/"
+      >추가</a
+    >
+      <a
+        href="/movie/{{ post.pk }}/mov/review/edit/"
+        >수정</a
+      >
+
+      <a
+        href="/movie/{{ post.pk }}/mov/review/delete/"
+        >삭제</a
+      >
+    </li>
+  </h5>
+
+<li>
+
+{{ messagee.message }}
+<h5>
+    <a href="/mov/{{movie.pk}}/review/new/"리뷰 작성</a>
+</h5>
+
+
+{%endfor%}
+
+</li>
+
+
+{% endblock %}
