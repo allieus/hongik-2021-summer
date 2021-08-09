@@ -1,0 +1,43 @@
+{% extends "movie/layout.html" %}
+
+{% block content %}
+<h2>{{ movie.name }}</h2>
+
+<hr />
+<h2>Poster</h2>
+<img src="{{ movie.poster.url }}" style="width: 250px;" />
+
+<hr />
+<h2>Trailer</h2>
+
+{% for trailer in trailer_list %}
+
+<iframe width="560" height="315" src="{{ trailer.youtube_url }}" title="{{ trailer.name }}" frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+
+{% endfor %}
+
+<hr />
+
+<h2>Description</h2>
+{{movie.desc}}
+
+<hr />
+<ul>
+    <h2>Review</h2>
+    {% for review in review_list %}
+    <li>
+        {{ review.message }}<a href="/movie/{{ movie.pk }}/review/{{ review.pk }}/edit/">Review Edit</a>
+    </li>
+    {% endfor %}
+    <a href="/movie/{{ movie.pk }}/review/new/">New Review</a>
+
+</ul>
+
+<hr />
+<a href="/movie/">List</a>
+<a href="/movie/movie/">Series</a>
+<a href="/movie/movie/{{ movie.pk }}/edit/">Edit</a>
+
+{% endblock %}

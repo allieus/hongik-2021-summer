@@ -1,0 +1,11 @@
+{% extends "movie/layout.html" %}
+
+{% block content %}
+<h2>{{ actor.name }}</h2>
+<img src="{{ actor.photo.url }}" style="width: 250px;" />
+
+<hr />
+
+<a href="/movie/">List</a>
+
+{% endblock %}

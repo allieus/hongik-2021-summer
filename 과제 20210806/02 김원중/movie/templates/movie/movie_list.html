@@ -1,0 +1,22 @@
+{% extends "movie/layout.html" %}
+
+{% block content %}
+<ul>
+    <h2>Series</h2>
+    {% for movie in movie_list %}
+    <li>
+        <a href="/movie/movie/{{ movie.pk }}/">
+            {{ movie.name }}
+        </a><br>
+        {{movie.desc}}
+    </li>
+    {% endfor %}
+</ul>
+
+<hr />
+
+<a href="/movie/">List</a>
+
+<a href="/movie/new/">New</a>
+
+{% endblock %}
