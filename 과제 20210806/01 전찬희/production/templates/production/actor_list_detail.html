@@ -1,0 +1,22 @@
+{% extends "production/layout.html" %}
+
+{% block content %}
+
+{% if actor.photo %}
+<img src="{{ actor.photo.url }}" style="width: 200px; height: 200px;">
+{% endif %}
+<hr />
+<h3>{{ actor.name }}</h3>
+<hr />
+{% for movie in movie_list %}
+<h2>{{ movie.title }}</h2>
+<hr>
+{% if movie.poster %}
+<img src="{{ movie.poster.url }}" style="width: 200px; height: 200px;">
+{% endif %}
+<hr />
+{{ movie.desc }}
+<hr />
+{% endfor %}
+
+{% endblock %}

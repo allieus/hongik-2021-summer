@@ -1,0 +1,19 @@
+{% extends "production/layout.html" %}
+{% block content %}
+
+<h2>Movie List</h2>
+<ul>
+    {% for movie in movie_list %}
+    <li>
+        <a href="/actor/movie/{{ movie.pk }}">{{ movie.title }}</a>
+        {% if movie.poster%}
+        <img src="{{ movie.poster.url }}" style="width: 100px; height: 100px;">
+        {% endif %}
+    </li>
+    {% endfor %}
+
+</ul>
+<hr />
+<a href="/actor/">Actor List</a>
+
+{% endblock %}

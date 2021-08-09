@@ -1,0 +1,28 @@
+{% extends "production/layout.html" %}
+
+{% block content %}
+
+{% if movie.poster %}
+<img src="{{ movie.poster.url }}" style="width: 200px; height: 200px;">
+{% endif %}
+<hr />
+<h3>{{ movie.title }}</h3>
+<hr />
+<h2>영화 소개</h2>
+{{ movie.desc }}
+<hr />
+<h2>영화 리뷰</h2>
+{% for review in review_list %}
+{{ review.message }}
+<a href="/actor/movie/{{ movie.pk }}/reviews/{{ review.pk }}/edit/">수정</a>
+<a href="/actor/movie/{{ movie.pk }}/reviews/{{ review.pk }}/delete/">삭제</a><br>
+{% endfor %}
+<a href="/actor/movie/{{ movie.pk }}/reviews/new/">댓글 추가</a>
+<hr>
+<h2>프로모션 url</h2>
+{% for video in video_list %}
+{{ video.youtube_url }}
+{% endfor %}
+<hr />
+<a href="/actor/movie/">Movie List</a>
+{% endblock %}
