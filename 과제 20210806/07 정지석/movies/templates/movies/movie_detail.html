@@ -1,0 +1,34 @@
+
+
+{% extends 'movies/layout.html' %}
+
+{% block content %}
+
+<h2> {{ movie.title }} </h2>
+<img src="{{ movie.poster.url }}" width = 200px; height=250;/>
+
+<hr />
+<h3> 줄거리 </h3>
+{{movie.desc}} 
+<hr />
+<h3> YouTube </h3>
+{% for video in video_list %}
+{{video.title}} : {{video.youtube_url}}
+<br>
+{% endfor %}
+
+<hr/>
+<h3> REVIEW </h3> 
+
+<ul>
+    {% for review in review_list %}
+    <li>
+        {{ review.messages }}
+        <a href="/movies/movie/{{ movie.pk }}/review/{{ review.pk }}/edit/">Edit</a>
+        <a href="/movies/movie/{{ movie.pk }}/review/{{ review.pk }}/delete/">Delete</a>
+    </li>
+    <hr/>
+    {% endfor %}
+</ul>
+<a href="/movies/movie/{{ movie.pk }}/review/new/">REVIEW 작성</a>
+{% endblock %}
