@@ -1,0 +1,18 @@
+{% extends "movie/layout.html" %}
+
+
+{% block content %}
+
+<h2>리뷰를 삭제하시겠습니까? <a href="/movie/{{ movie.pk }}"> 취소 </a></h2>
+
+
+{{ review.message }}<br>
+
+<hr/>
+
+<form action="" method="post">
+{% csrf_token %}
+<input type="submit" name="DELETE" />
+
+</form>
+{% endblock %}

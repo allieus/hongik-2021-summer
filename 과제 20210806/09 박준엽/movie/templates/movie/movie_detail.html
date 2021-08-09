@@ -1,0 +1,43 @@
+{% extends 'movie/layout.html' %}
+
+{% block content %}
+<h2>{{ movie.name }}</h2>
+
+<img src="{{ movie.poster.url }}" style="width: 200px;" />
+
+<br><h2>감독</h2> {{ movie.director }} 
+<h2>배우</h2><a href="/movie/{{ movie.pk }}/actor/">{{ movie.actor }}</a>
+<hr />
+
+<ul>
+{% for video in video_list %}
+<iframe width="767" height="431" src="{{ video.youtube_url }}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</ul>
+{% endfor %}
+
+<hr />
+{{ movie.desc|linebreaks }}
+<hr />
+
+<!--&copy; 2021. JYP.-->
+at {{ movie.created_at }}
+<hr />
+
+<a href="/movie/{{ movie.pk }}/review/new/">감상평 쓰기</a>
+
+<ul>
+    {% for review in review_list %}
+    <li>
+        {{ review.message }}
+        | {{ review.created_at }} |
+        <a href="/movie/{{ movie.pk }}/review/{{ review.pk }}/edit/">수정</a>
+        <a href="/movie/{{ movie.pk }}/review/{{ review.pk }}/delete/">삭제</a>
+    </li><br>
+    {% endfor %}
+    
+</ul>
+
+<hr />
+<a href="/movie/">목록</a>
+<a href="/movie/{{ movie.pk }}/edit/">글 수정</a>
+{% endblock %}
