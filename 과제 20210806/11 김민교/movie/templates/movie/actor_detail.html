@@ -1,0 +1,40 @@
+{% extends "movie/layout.html" %}
+
+{% block content %}
+<a href="/movie/actor/">배우 목록</a>
+<a href="/movie/">영화 목록</a> <br>
+<hr />
+<h2>{{ actor.name }}</h2>
+
+<hr />
+
+<img src="{{ actor.photo.url }}" style="width: 300px;" />
+
+<hr/>
+
+{{ actor.created_at }}
+{{ actor.updated_at }}
+
+<hr />
+
+<hr />
+
+<h3>필모그래피</h3>
+<a href="/movie/new/">영화 등록</a><br>
+<ul>
+    {% for movie in movie_list %}
+    <li>
+        {{ movie.title }}<br>
+        <img src="{{ movie.poster.url }}" style="width=100px;", "height=100px;" /><br>
+        <br>
+        {{ movie.created_at }}
+        {{ movie.updated_at }}
+    </li>
+    <br>
+    {% endfor %}
+
+</ul>
+
+
+
+{% endblock %}

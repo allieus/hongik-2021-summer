@@ -1,0 +1,64 @@
+{% extends "movie/layout.html" %}
+
+{% block content %}
+<a href="/movie/">영화 목록</a>
+<a href="/movie/{{movie.pk}}/edit/">영화 수정</a>
+<a href="/movie/{{movie.pk}}/delete/">영화 삭제</a> <br>
+<hr />
+<h2>{{ movie.title }}</h2>
+
+<hr />
+
+<img src="{{ movie.poster.url }}" style="width: 100px;" />
+
+<p style="margin-top:20px ;">
+<strong>줄거리</strong>
+
+{{ movie.desc|linebreaks }}
+</p>
+
+<p style="margin-top:20px ;">
+<strong>영화감독 :</strong> {{ movie.director }}<br>
+<strong>주연배우 :</strong> {{ movie.actor }}
+</p>
+
+<hr/>
+
+{{ movie.created_at }}
+{{ movie.updated_at }}
+
+
+<hr />
+
+<h3>Review</h3>
+<a href="/movie/{{ movie.pk }}/review/new/">리뷰쓰기</a>
+<hr />
+<ul>
+    {% for review in review_list %}
+    <li>
+        <strong>{{ review.message }}</strong><br>
+        <a href="/movie/{{ movie.pk }}/review/{{ review.pk }}/edit/">수정</a>
+        <a href="/movie/{{ movie.pk }}/review/{{ review.pk }}/delete/">삭제</a><br>
+        {{ review.created_at }}
+        {{ review.updated_at }}
+    </li>
+    
+    {% endfor %}
+</ul>
+<hr />
+
+
+<h3>예고편</h3>
+<a href="/movie/{{ movie.pk }}/video/new/">예고편 추가</a>
+<ul>
+{% for video in video_list %}
+{{ video.name }}
+<a href="/movie/{{ movie.pk }}/video/{{ video.pk }}/edit">수정</a>
+<a href="/movie/{{ movie.pk }}/video/{{ video.pk }}/delete">삭제</a><br>
+<iframe width="560" height="315" src="{{ video.youtube_url }}" title="{{ video.name }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<br>
+{% endfor %}
+
+</ul>
+{% endblock %}

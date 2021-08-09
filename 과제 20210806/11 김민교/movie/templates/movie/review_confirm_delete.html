@@ -1,0 +1,20 @@
+{% extends "movie/layout.html" %}
+
+
+{% block content %}
+
+<a href="/movie/{{ movie.pk }}/"> 뒤로가기 </a>
+
+<h2>정말로 해당 리뷰를 삭제하시겠습니까?</h2>
+
+
+{{ review.message }}<br>
+
+<hr/>
+
+<form action="" method="post">
+{% csrf_token %}
+<input type="submit" name="DELETE" />
+
+</form>
+{% endblock %}

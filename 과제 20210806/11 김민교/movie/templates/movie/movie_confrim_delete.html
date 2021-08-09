@@ -1,0 +1,21 @@
+{% extends "movie/layout.html" %}
+
+
+{% block content %}
+
+<a href="/movie/{{ movie.pk }}/"> 뒤로가기 </a>
+
+<h2>정말로 해당 영화를 삭제하시겠습니까?</h2>
+
+
+{{ movie.title }}<br>
+<img src="{{ movie.poster.url }}" width="100px;" />
+
+<hr/>
+
+<form action="" method="post">
+{% csrf_token %}
+<input type="submit" name="DELETE" />
+
+</form>
+{% endblock %}
