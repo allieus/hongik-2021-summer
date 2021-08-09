@@ -1,0 +1,20 @@
+{% extends "movie/layout.html"%}
+
+{% block content %}
+<h1>" 영화마을 " in showbox</h1>
+<h2>&nbsp&nbsp - showbox actor list-</h2>
+<table>
+    {% for actor in actor_list %}
+    <tr>
+        <td> {{ actor.name }} </td>
+        <td> <img src ="{{ actor.photo.url }}" style ="width: 100px; height: 150px"</td>
+        <td>
+
+            <a href="/movie/{{ actor.pk }}/">{{ actor.name }}</a><br>
+
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

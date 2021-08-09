@@ -1,0 +1,29 @@
+{% extends "movie/layout.html"%}
+{% block content %}
+<h1> -영화줄거리-  </h1>
+<h1> {{ movie.title }} </h1>
+<h2> <img src ="{{ movie.poster.url }}" style ="width: 100px; height: 150px"</h2>
+<h3> {{ movie.text  }} </t3>
+
+<h4> 영화 리뷰 </h4>
+
+{% for messagee in message %}
+
+
+<li>
+
+{{ messagee.message }}
+
+<a href="/movie/{{messagee.pk}}/review/edit/">수정</a>
+<a href="/movie/{{messagee.pk}}/review/delete/">삭제</a>
+{%endfor%}
+
+</li>
+<h6>
+
+  <a href="/movie/{{movie.pk}}/review/new/">리뷰 생성</a>
+  
+</h6>
+
+
+{% endblock %}
