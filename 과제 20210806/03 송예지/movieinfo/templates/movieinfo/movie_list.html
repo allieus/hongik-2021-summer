@@ -1,0 +1,20 @@
+{% extends 'movieinfo/layout.html' %} {% block content %}
+<h1>Movie List</h1>
+<h2>&nbsp&nbsp▶YEIJ COMPANY 배우들의 출연작 리스트</h2>
+<hr />
+<table>
+  <tbody>
+    {% for movie in movie_list %}
+    <tr>
+      <td width="20%" align="center"><h3>{{ movie.id }}</h3></td>
+      <td width="50%" align="center"><h3>{{ movie.title }}</h3></td>
+      <td>
+        <img src="{{ movie.poster.url }}" style="width: 100px; height: 150px" />
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<hr />
+<a href="/movieinfo">배우 리스트</a>
+{% endblock %}

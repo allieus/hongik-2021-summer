@@ -1,0 +1,25 @@
+{% extends 'movieinfo/layout.html' %} {% block content %}
+<h1>{{ actor.name }} 배우</h1>
+<h2>&nbsp▶작품 리스트</h2>
+
+<hr />
+
+<table border="1" bgcolor="ivory">
+  <tbody>
+      {% for poster in poster_list %}
+      <tr>
+        <td width="20%" align="center"><h3>{{ poster.actor }}</h3></td>
+        <td width="20%" align="center"><a href="/movieinfo/{{ actor.pk }}/movies/{{ poster.pk }}/"><h3>{{ poster.title }}</h3></a></td>
+        <td width="40%" align="center">
+          <img src="{{ poster.poster.url }}" style="width: 200px; height: 300px" />
+        </td>
+      </tr>
+      {% endfor %}
+    </th>
+  </tbody>
+</table>
+
+<hr />
+<a href="/movieinfo/">배우 리스트</a>
+&nbsp&nbsp&nbsp<a href="/movieinfo/{{ actor.pk }}/movies/new/">{{actor.name}} 배우의 신작 추가하기</a>
+{% endblock %}

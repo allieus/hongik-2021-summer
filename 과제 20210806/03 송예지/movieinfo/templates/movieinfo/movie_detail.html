@@ -1,0 +1,56 @@
+{% extends 'movieinfo/layout.html' %} {% block content %}
+<h1>{{ movie.title }}</h1>
+<h2>주연 : {{ movie.actor}}</h2>
+<img src="{{ movie.poster.url }}" style="width: 200px; height: 300px" /><br />
+{{ movie.desc|linebreaksbr }}
+<hr />
+
+<h4>영화 미리보기</h4>
+
+{% for video in video_list %}
+
+<iframe
+  id="ytplayer"
+  type="text/html"
+  width="640"
+  height="360"
+  src="{{ video.youtube_url }}?autoplay=1&origin=http://example.com"
+  frameborder="0"
+></iframe>
+{% endfor %}
+<h6>
+  <a href="/movieinfo/{{ actor.pk }}/movies/{{ movie.pk }}/videos/new/"
+    >미리보기 추가</a
+  >
+  <hr />
+</h6>
+<h4>영화 리뷰</h4>
+{% for review in review_list %}
+<h5>
+  <li>
+    {{ review.message }}
+    <a
+      href="/movieinfo/{{ actor.pk }}/movies/{{ movie.pk }}/reviews/{{ review.pk }}/edit/"
+      >수정</a
+    >
+    <a
+      href="/movieinfo/{{ actor.pk }}/movies/{{ movie.pk }}/reviews/{{ review.pk }}/delete/"
+      >삭제</a
+    >
+  </li>
+</h5>
+{% endfor %}
+<h6>
+  <a href="/movieinfo/{{ actor.pk }}/movies/{{ movie.pk }}/reviews/new/"
+    >리뷰 추가</a
+  >
+</h6>
+<hr />
+<div align="right">
+  <a href="/movieinfo/">배우 리스트</a>
+  &nbsp&nbsp&nbsp<a href="/movieinfo/{{ actor.pk }}/"
+    >{{ movie.actor }} 배우 출연작 리스트</a
+  >
+</div>
+
+{% endblock %}

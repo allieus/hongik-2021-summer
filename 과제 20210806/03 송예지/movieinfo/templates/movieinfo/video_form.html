@@ -1,0 +1,14 @@
+{% extends "movieinfo/layout.html" %} {% block content %}
+
+<h2>{{ movie.title }} 미리보기 추가하기</h2>
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form }}
+  </table>
+
+  <input type="submit" />
+</form>
+
+{% endblock %}

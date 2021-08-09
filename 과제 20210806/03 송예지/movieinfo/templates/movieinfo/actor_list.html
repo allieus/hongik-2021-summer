@@ -1,0 +1,28 @@
+{% extends 'movieinfo/layout.html' %} {% block content %}
+<h1>" Actor List " of YEIJ COMPANY</h1>
+<h2>&nbsp&nbsp▶YEIJ COMPANY 배우 리스트</h2>
+<hr />
+<table>
+  <tbody>
+      {% for actor in actor_list %}
+      <tr>
+        <td width="20%" align="center"><h3>{{ actor.pk }}</h3></td>
+        <td width="40%" align="center">
+          <h3><a href="/movieinfo/{{ actor.pk }}/">{{ actor.name }}</a></h3>
+        </td>
+        <td>
+          <img
+            src="{{ actor.photo.url }}"
+            style="width: 100px; height: 150px"
+          />
+        </td>
+      </tr>
+      {% endfor %}
+    </th>
+  </tbody>
+</table>
+<hr />
+<h4><a href="/movieinfo/actors/new">배우 추가하기</a><h4>
+<div align="right"><a href="/movieinfo/movies/">YEIJ COMPANY 배우 출연작 전체 리스트</a></div>
+
+{% endblock %}
