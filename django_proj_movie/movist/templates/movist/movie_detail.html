@@ -26,9 +26,8 @@
         <a href="{{ video.youtube_url }}">
             {{ video.title }}
         </a>
-        TODO: Embed
 
-        {{ video.youtube_embed_html }}
+        {% include "movist/_youtube_embed.html" with youtube_id=video.youtube_id %}
 
         {% comment %} https://www.youtube.com/watch?v=xyfozmk1SxQ
         https://www.youtube.com/embed/xyfozmk1SxQ

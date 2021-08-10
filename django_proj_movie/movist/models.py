@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 
@@ -39,16 +40,20 @@ class Video(TimestampedModel):
     title = models.CharField(max_length=100)
     youtube_url = models.URLField()
 
-    def youtube_embed_html(self):
+    # 인자없는 멤버함수는 속성처럼 사용하고 싶습니다.
+    @property
+    def youtube_id(self):
         # https://www.youtube.com/watch?v=xyfozmk1SxQ
         if 'v=' in self.youtube_url:
-            youtube_id = self.youtube_url.split('v=')[1]
-            html = f"""
-                <iframe id="ytplayer" type="text/html" width="640" height="360"
-                src="https://www.youtube.com/embed/{youtube_id}?autoplay=1&origin=http://example.com"
-                frameborder="0"></iframe>
-            """
-            return mark_safe(html)
+            return self.youtube_url.split('v=')[1]
+        return None
+
+    @property
+    def youtube_embed_html(self):
+        if self.youtube_id:
+            return render_to_string("movist/_youtube_embed.html", {
+                "youtube_id": self.youtube_id,
+            })
         return None
 
 
