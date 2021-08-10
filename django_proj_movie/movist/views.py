@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 
 from movist.forms import ReviewForm
@@ -37,16 +38,24 @@ def movie_detail(request, pk):
     })
 
 
+# 이 응답에서 페이지 전체를 그릴 것인지? 혹은 실제 컨텐츠만 그릴 것인지를 결정.
+
 def review_list(request, movie_pk):
     # movie = Movie.objects.get(pk=movie_pk)
     # review_list = movie.review_set.all()
 
     review_list = Review.objects.filter(movie__pk=movie_pk)
 
-    # 우리가 일반적인 응답 포맷은 HTML
-    return render(request, "movist/review_list.html", {
-        "review_list": review_list,
-    })
+    # python plain objects로 변환
+    response_data = [
+        {"message": review.message}
+        for review in review_list]
+    return JsonResponse(response_data, safe=False, json_dumps_params={'ensure_ascii': False})
+
+    # # 우리가 일반적인 응답 포맷은 HTML
+    # return render(request, "movist/review_list.html", {
+    #     "review_list": review_list,
+    # })
 
 
 def review_new(request, movie_pk):

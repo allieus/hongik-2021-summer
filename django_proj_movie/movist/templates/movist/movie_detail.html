@@ -46,17 +46,7 @@
     리뷰 쓰기
 </a>
 
-<ul>
-    {% for review in movie.review_set.all %}
-    <li>
-        {{ review.message }}
-        <a href="/movist/movies/{{ movie.pk }}/reviews/{{ review.pk }}/edit/">Edit</a>
-        <a href="/movist/movies/{{ movie.pk }}/reviews/{{ review.pk }}/delete/">Delete</a>
-    </li>
-    {% empty %}
-    <li>등록된 리뷰가 없습니다. 첫번째 리뷰를 작성해주세요.</li>
-    {% endfor %}
-</ul>
+<div id="review-list"></div>
 
 <script>
     function init() {
@@ -68,12 +58,22 @@
         // var a = 1; // var 라고 쓰는 것은 옛 시대의 유물.
         // 이제는 const와 let을 씁니다.
 
-        const review_list_url = "/movist/movies/1/reviews/";
+        const review_list_url = "/movist/movies/{{ movie.pk }}/reviews/";
 
         // 지정 주소로 GET 요청을 해서 응답을 받겠다.
-        jQuery.get(review_list_url).done((response) => {
-            console.log("response :", response);
-        }); // 아주 옛스런 방법, or fetch, axios
+        jQuery.get(review_list_url)
+            .done((response) => {
+                const review_list = response;
+                let html = '';
+                for (const review of review_list) {
+                    html += `<li>${review.message}</li>`;
+                }
+                document.getElementById("review-list").innerHTML = '<ul>' + html + '</ul>';
+            })
+            .fail(() => {
+                console.error("failed to load");
+            })
+            .always(() => {}); // 아주 옛스런 방법, or fetch, axios
     }
     jQuery(init);
     // $(init);

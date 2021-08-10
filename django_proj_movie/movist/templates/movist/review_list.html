@@ -1,7 +1,7 @@
-{% extends "movist/layout.html" %}
-
-{% block content %}
-<h2>Reviews</h2>
-
-{{ review_list }}
-{% endblock %}
+<ul>
+    {% for review in review_list %}
+    <li>
+        {{ review.message }}
+    </li>
+    {% endfor %}
+</ul>
