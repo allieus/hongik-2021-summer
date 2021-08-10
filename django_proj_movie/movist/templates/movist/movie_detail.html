@@ -58,4 +58,25 @@
     {% endfor %}
 </ul>
 
+<script>
+    function init() {
+        console.log("페이지 초기화 완료");
+
+        // js로 리뷰 목록을 가져와서
+        // 웹페이지에 뿌려주겠다.
+
+        // var a = 1; // var 라고 쓰는 것은 옛 시대의 유물.
+        // 이제는 const와 let을 씁니다.
+
+        const review_list_url = "/movist/movies/1/reviews/";
+
+        // 지정 주소로 GET 요청을 해서 응답을 받겠다.
+        jQuery.get(review_list_url).done((response) => {
+            console.log("response :", response);
+        }); // 아주 옛스런 방법, or fetch, axios
+    }
+    jQuery(init);
+    // $(init);
+</script>
+
 {% endblock %}
