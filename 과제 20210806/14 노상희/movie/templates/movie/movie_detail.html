@@ -1,0 +1,31 @@
+{% extends 'movie/layout.html' %}
+
+{% block content %}
+<h2>{{ movie.title }}</h2>
+
+<img src="{{ movie.poster.url }}" />
+
+{{ movie.content|linebreaks }}
+
+<hr />
+by {{ movie.actor.name }}
+at {{ movie.created_at }}
+<hr />
+
+<a href="/movie/{{ movie.pk }}/review/new/">새 리뷰 쓰기</a>
+
+<ul>
+    {% for review in review_list %}
+    <li>
+        {{ review.message }}
+        at {{ review.created_at }}
+        <a href="/movie/{{ movie.pk }}/reviews/{{ review.pk}}/edit/">Edit</a>
+        <a href="/movie/{{ movie.pk }}/reviews.pk }}/delete/">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<hr />
+<a href="/movie/">List</a>
+<a href="/movie/{{ movie.pk }}/edit/">Edit</a>
+
+{% endblock %}

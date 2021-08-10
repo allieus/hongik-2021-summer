@@ -1,0 +1,18 @@
+{% extends 'movie/layout.html' %}
+
+{% block content %}
+<ul>
+    {% for movie in movie_list %}
+    <li>
+        <img src="{{ movie.poster.url }}" style="width: 100px;" />
+        <a href="/movie/{{ movie.pk }}/">
+            {{ movie.title }}
+        </a>
+        {{ movie.actor.name }}
+ </li>
+    {% endfor %}
+</ul>
+<hr />
+<a href="/movie/new/">Movie New</a>
+<a href="/movie/actor/">배우 목록</a>
+{% endblock %}
