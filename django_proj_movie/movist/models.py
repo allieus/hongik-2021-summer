@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.safestring import mark_safe
 
 
 class TimestampedModel(models.Model):
@@ -37,6 +38,18 @@ class Video(TimestampedModel):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     youtube_url = models.URLField()
+
+    def youtube_embed_html(self):
+        # https://www.youtube.com/watch?v=xyfozmk1SxQ
+        if 'v=' in self.youtube_url:
+            youtube_id = self.youtube_url.split('v=')[1]
+            html = f"""
+                <iframe id="ytplayer" type="text/html" width="640" height="360"
+                src="https://www.youtube.com/embed/{youtube_id}?autoplay=1&origin=http://example.com"
+                frameborder="0"></iframe>
+            """
+            return mark_safe(html)
+        return None
 
 
 class Review(TimestampedModel):

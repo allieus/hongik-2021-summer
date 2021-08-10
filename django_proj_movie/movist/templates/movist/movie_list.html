@@ -1,0 +1,16 @@
+{% extends "movist/layout.html" %}
+
+{% block content %}
+
+<ul>
+    {% for movie in movie_list %}
+    <li>
+        <a href="/movist/movies/{{ movie.pk }}/">
+            {{ movie.name }}
+        </a>
+        <img src="{{ movie.poster.url }}" style="width: 100px;" />
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
