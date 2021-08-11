@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html>
 
@@ -7,12 +9,37 @@
     <!-- jQurey CDN 적용 : 추후 django static을 활용하기를 추천 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/static/base.css" />
-    <script src="/static/base.js"></script>
+    <link rel="stylesheet" href="{% static "base.css" %}" />
+    <style>
+        #top-nav {
+            display: flex;
+        }
+
+        #top-nav li {
+            list-style: none;
+            margin-right: 1em;
+        }
+    </style>
+    <script src="{% static "base.js" %}"></script>
 </head>
 
 <body>
     <h1>Movist</h1>
+
+    <ul id="top-nav">
+        {% if not user.is_authenticated %}
+        <li><a href="{% url "signup" %}">회원가입</a></li>
+        <li><a href="{% url "login" %}">로그인</a></li>
+        {% else %}
+        <li>
+            <a href="{% url "profile" %}">
+                {{ user.username }}'s
+                프로필
+            </a>
+        </li>
+        <li><a href="{% url "logout" %}">로그아웃</a></li>
+        {% endif %}
+    </ul>
 
     {% block content %}
     {% endblock %}

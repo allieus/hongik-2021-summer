@@ -1,5 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, resolve_url
 
 from movist.forms import ReviewForm
 from movist.models import Actor, Movie, Review
@@ -47,8 +48,18 @@ def review_list(request, movie_pk):
     review_list = Review.objects.filter(movie__pk=movie_pk)
 
     # python plain objects로 변환
+    # JSON으로 변환하는 파이썬 기본 라이브러리인 json.dumps를 통해서 이뤄집니다.
+    #  파이썬 기본 타입에 대해서만 변환 룰을 제공해줍니다.
+    #  추가 타입에 대해서는? 커스텀 Rule을 지정할 수 있습니다. => json.dumps에 cls 인자를 통해 가능
     response_data = [
-        {"message": review.message}
+        {
+            "message": review.message,
+            "edit_url": resolve_url("review_edit", movie_pk, review.pk),
+            "delete_url": resolve_url("review_delete", movie_pk, review.pk),
+            "author": {
+                "username": review.author.username,
+            },
+        }
         for review in review_list]
     return JsonResponse(response_data, safe=False, json_dumps_params={'ensure_ascii': False})
 
@@ -58,6 +69,7 @@ def review_list(request, movie_pk):
     # })
 
 
+@login_required
 def review_new(request, movie_pk):
     movie = Movie.objects.get(pk=movie_pk)
 
@@ -65,9 +77,19 @@ def review_new(request, movie_pk):
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review: Review = form.save(commit=False)
+            # 현재 로그인 유저를 author 필드에 지정
+            review.author = request.user
             review.movie = movie
             review.save()
-            return redirect(f"/movist/movies/{movie_pk}/")
+            # return redirect(f"/movist/movies/{movie_pk}/")
+            # return redirect("movie_detail", movie_pk)  # URL Reverse
+
+            # return redirect(movie.get_absolute_url())
+            # redirect는 인자로 받은 객체에서 get_absolute_url 속성을 지원하면
+            # get_absolute_url() 을 호출하여 그 반환값을 사용합니다.
+            return redirect(movie)
+
+            # return redirect("movie_detail", pk=movie_pk)  # URL Reverse
     else:  # GET
         form = ReviewForm()
 
@@ -76,6 +98,7 @@ def review_new(request, movie_pk):
     })
 
 
+@login_required
 def review_edit(request, movie_pk, pk):
     review = Review.objects.get(pk=pk)
 
@@ -83,7 +106,9 @@ def review_edit(request, movie_pk, pk):
         form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
             review: Review = form.save()
-            return redirect(f"/movist/movies/{movie_pk}/")
+            # return redirect(f"/movist/movies/{movie_pk}/")
+            # return redirect("movie_detail", movie_pk)  # URL Reverse
+            return redirect(review.movie)
     else:  # GET
         form = ReviewForm(instance=review)
 
@@ -93,10 +118,12 @@ def review_edit(request, movie_pk, pk):
 
 
 # GET 방식으로 요청을 받았을 때에는, 절대 삭제하지마세요.
-
+@login_required
 def review_delete(request, movie_pk, pk):
     review = Review.objects.get(pk=pk)
     if request.method == "POST":
         review.delete()
-        return redirect(f"/movist/movies/{movie_pk}/")
+        # return redirect(f"/movist/movies/{movie_pk}/")
+        # return redirect("movie_detail", movie_pk)
+        return redirect(review.movie)
     return render(request, "movist/review_confirm_delete.html")

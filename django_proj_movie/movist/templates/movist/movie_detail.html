@@ -42,6 +42,11 @@
 
 <h3>Reviews</h3>
 
+<a href="{% url "review_new" movie.pk %}">
+    리뷰 쓰기
+</a>
+
+{# FIXME: 제거대상 #}
 <a href="/movist/movies/{{ movie.pk }}/reviews/new/">
     리뷰 쓰기
 </a>
@@ -58,7 +63,8 @@
         // var a = 1; // var 라고 쓰는 것은 옛 시대의 유물.
         // 이제는 const와 let을 씁니다.
 
-        const review_list_url = "/movist/movies/{{ movie.pk }}/reviews/";
+        const review_list_url = '{% url "review_list" movie.pk %}';
+        // const review_list_url = "/movist/movies/{{ movie.pk }}/reviews/";
 
         // 지정 주소로 GET 요청을 해서 응답을 받겠다.
         jQuery.get(review_list_url)
@@ -66,7 +72,14 @@
                 const review_list = response;
                 let html = '';
                 for (const review of review_list) {
-                    html += `<li>${review.message}</li>`;
+                    html += `
+                        <li>
+                            ${review.message}
+                            by ${review.author.username}
+                            <a href="${review.edit_url}">Edit</a>
+                            <a href="${review.delete_url}">Delete</a>
+                        </li>
+                    `;
                 }
                 document.getElementById("review-list").innerHTML = '<ul>' + html + '</ul>';
             })

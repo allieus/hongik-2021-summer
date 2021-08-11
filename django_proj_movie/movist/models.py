@@ -1,5 +1,9 @@
+# 아래 임포트는 확장성있는 좋은 방법은 아닙니다.
+# 차후에 Custom User를 하실 때에는 다른 방법으로 User 클래스를 임포트하셔야 됩니다.
+from django.contrib.auth.models import User
 from django.db import models
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 
@@ -34,6 +38,14 @@ class Movie(TimestampedModel):
     def __str__(self) -> str:
         return self.name
 
+    # 뭘 기대하냐면
+    # movie 인스턴스에 대한 detail URL 문자열을 리턴하기를 기대.
+    def get_absolute_url(self) -> str:
+        # url = f"/movie/movies/{self.pk}/"  # 하드코딩
+        url = reverse("movie_detail", args=[self.pk])
+        # url = reverse("movie_detail", kwargs={"pk": self.pk})
+        return url
+
 
 class Video(TimestampedModel):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
@@ -58,5 +70,6 @@ class Video(TimestampedModel):
 
 
 class Review(TimestampedModel):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     message = models.TextField()

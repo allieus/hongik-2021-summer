@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from movist.models import Actor, Movie, Video
+from movist.models import Actor, Movie, Review, Video
 
 
 @admin.register(Actor)
@@ -27,3 +27,8 @@ class VideoAdmin(admin.ModelAdmin):
     def youtube_link(self, video: Video) -> str:
         html = f'<a href="{video.youtube_url}" target="_blank">바로보기</a>'
         return mark_safe(html)
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    pass
