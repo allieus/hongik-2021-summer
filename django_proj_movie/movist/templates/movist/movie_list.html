@@ -8,15 +8,18 @@
     <!-- <button>검색</button> -->
 </form>
 
-<ul>
+<div class="row">
     {% for movie in movie_list %}
-    <li>
-        <a href="/movist/movies/{{ movie.pk }}/">
-            {{ movie.name }}
-        </a>
-        <img src="{{ movie.poster.url }}" style="width: 100px;" />
-    </li>
+    <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.name }}" />
+        <div class="card-body">
+            <h5 class="card-title">{{ movie.name }}</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            <a href="{% url "movie_detail" movie.pk %}" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 {% endblock %}
