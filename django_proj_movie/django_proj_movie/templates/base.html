@@ -11,6 +11,11 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static "base.css" %}" />
     <style>
+        .page-title a {
+            text-decoration: none;
+            color: #ff4552;
+        }
+
         #top-nav {
             display: flex;
         }
@@ -24,7 +29,9 @@
 </head>
 
 <body>
-    <h1>Movist</h1>
+    <h1 class="page-title">
+        <a href="{% url "root" %}">Movist</a>
+    </h1>
 
     <ul id="top-nav">
         {% if not user.is_authenticated %}
