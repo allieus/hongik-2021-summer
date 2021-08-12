@@ -8,15 +8,18 @@
     <!-- <button>검색</button> -->
 </form>
 
-<div class="row">
+<div class="row my-3">
     {% for movie in movie_list %}
-    <div class="card col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.name }}" />
-        <div class="card-body">
-            <h5 class="card-title">{{ movie.name }}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a href="{% url "movie_detail" movie.pk %}" class="btn btn-primary">Go somewhere</a>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="card mb-3">
+            <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.name }}" />
+            <div class="card-body">
+                <h5 class="card-title">{{ movie.name }}</h5>
+                <p class="card-text">
+                    {{ movie.desc|truncatechars:100 }}
+                </p>
+                <a href="{% url "movie_detail" movie.pk %}" class="btn btn-primary">자세히 보기</a>
+            </div>
         </div>
     </div>
     {% endfor %}
