@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.http.request import HttpRequest
-from django.shortcuts import redirect, render, resolve_url
+from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 
 from movist.forms import ReviewForm
 from movist.models import Actor, Movie, Review
@@ -17,8 +17,18 @@ def actor_list(request):
 
 
 # actor detail
+
+
 def actor_detail(request, pk):
-    actor = Actor.objects.get(pk=pk)
+    # 이렇게 직접 예외처리하는 것이 번거로워요.
+    # try:
+    #     actor = Actor.objects.get(pk=pk)
+    # except Actor.DoesNotExist:
+    #     raise Http404  # django.http
+
+    # 특정 model instance를 획득하는 제대로된 코드
+    actor = get_object_or_404(Actor, pk=pk)
+
     # movie_list = actor.movie_set.all()
     return render(request, "movist/actor_detail.html", {
         "actor": actor,
@@ -44,7 +54,8 @@ def movie_list(request: HttpRequest):
 
 # movie detail + review 쓰기
 def movie_detail(request, pk):
-    movie = Movie.objects.get(pk=pk)
+    # movie = Movie.objects.get(pk=pk)
+    movie = get_object_or_404(Movie, pk=pk)
     return render(request, "movist/movie_detail.html", {
         "movie": movie,
     })
@@ -82,7 +93,8 @@ def review_list(request, movie_pk):
 
 @login_required
 def review_new(request, movie_pk):
-    movie = Movie.objects.get(pk=movie_pk)
+    # movie = Movie.objects.get(pk=movie_pk)
+    movie = get_object_or_404(Movie, pk=movie_pk)
 
     if request.method == "POST":
         form = ReviewForm(request.POST, request.FILES)
@@ -111,7 +123,8 @@ def review_new(request, movie_pk):
 
 @login_required
 def review_edit(request, movie_pk, pk):
-    review = Review.objects.get(pk=pk)
+    # review = Review.objects.get(pk=pk)
+    review = get_object_or_404(Review, pk=pk)
 
     if request.method == "POST":
         form = ReviewForm(request.POST, request.FILES, instance=review)
@@ -131,7 +144,8 @@ def review_edit(request, movie_pk, pk):
 # GET 방식으로 요청을 받았을 때에는, 절대 삭제하지마세요.
 @login_required
 def review_delete(request, movie_pk, pk):
-    review = Review.objects.get(pk=pk)
+    # review = Review.objects.get(pk=pk)
+    review = get_object_or_404(Review, pk=pk)
     if request.method == "POST":
         review.delete()
         # return redirect(f"/movist/movies/{movie_pk}/")
