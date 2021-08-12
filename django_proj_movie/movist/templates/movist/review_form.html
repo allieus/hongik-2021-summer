@@ -1,13 +1,19 @@
 {% extends "movist/layout.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
 
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="" method="POST" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
-    <table>
+    {% comment %} <table>
         {{ form.as_table }}
-    </table>
-    <input type="submit" />
+    </table> {% endcomment %}
+
+    {% bootstrap_form form %}
+
+    <input type="submit" class="btn btn-primary" />
+    <input type="submit" class="btn btn-secondary" />
+    <input type="submit" class="btn btn-danger" />
 </form>
 
 {% endblock %}
