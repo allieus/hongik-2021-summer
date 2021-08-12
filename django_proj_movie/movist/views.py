@@ -26,7 +26,7 @@ def actor_detail(request, pk):
 
 # movie list
 def movie_list(request: HttpRequest):
-    qs = Movie.objects.all()
+    qs = Movie.objects.all().select_related("actor")
 
     # QueryDict
     # QueryString 인자 : 모든 요청에 존재할 수 있어요.

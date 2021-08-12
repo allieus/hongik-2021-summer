@@ -18,6 +18,9 @@
                 <p class="card-text">
                     {{ movie.desc|truncatechars:100 }}
                 </p>
+                <p class="card-text">
+                    주연배우: {{ movie.actor.name }}
+                </p>
                 <a href="{% url "movie_detail" movie.pk %}" class="btn btn-primary">자세히 보기</a>
             </div>
         </div>
