@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.http.request import HttpRequest
 from django.shortcuts import redirect, render, resolve_url
 
 from movist.forms import ReviewForm
@@ -24,8 +25,17 @@ def actor_detail(request, pk):
 
 
 # movie list
-def movie_list(request):
+def movie_list(request: HttpRequest):
     qs = Movie.objects.all()
+
+    # QueryDict
+    # QueryString 인자 : 모든 요청에 존재할 수 있어요.
+    query = request.GET.get("query", "")
+    if query:
+        qs = qs.filter(name__icontains=query)
+    # request.POST  # POST에만 존재
+    # request.FILES
+
     return render(request, "movist/movie_list.html", {
         "movie_list": qs,
     })

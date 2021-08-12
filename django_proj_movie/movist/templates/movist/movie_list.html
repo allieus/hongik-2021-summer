@@ -2,6 +2,12 @@
 
 {% block content %}
 
+<form action="" method="get">
+    <input type="text" name="query" placeholder="검색어를 입력해주세요." value="{{ request.GET.query }}" />
+    <input type="submit" value="검색" />
+    <!-- <button>검색</button> -->
+</form>
+
 <ul>
     {% for movie in movie_list %}
     <li>
