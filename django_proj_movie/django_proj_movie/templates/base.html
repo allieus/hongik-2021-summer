@@ -6,6 +6,11 @@
 <head>
     <meta charset="utf-8" />
     <title>Movist</title>
+
+    <!-- CSS를 JS보다 먼저 배치 -->
+    <link rel="stylesheet" href="{% static "bootstrap-5.1.0-dist/css/bootstrap.min.css" %}" />
+    <script src="{% static "bootstrap-5.1.0-dist/js/bootstrap.min.js" %}"></script>
+
     <!-- jQurey CDN 적용 : 추후 django static을 활용하기를 추천 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
