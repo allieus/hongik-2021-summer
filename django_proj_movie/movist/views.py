@@ -9,7 +9,8 @@ from movist.models import Actor, Movie, Review
 
 # actor list
 def actor_list(request):
-    qs = Actor.objects.all()
+    qs = Actor.objects.all().prefetch_related("movie_set")
+
     return render(request, "movist/actor_list.html", {
         "actor_list": qs,
     })

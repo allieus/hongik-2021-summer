@@ -9,6 +9,8 @@
             {{ actor.name }}
         </a>
         <img src="{{ actor.photo.url }}" style="width: 100px;" />
+
+        {{ actor.movie_set.all }}
     </li>
     {% endfor %}
 </ul>
